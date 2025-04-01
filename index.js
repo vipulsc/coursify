@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
 const { adminRouter } = require("./routes/admin");
+const { userRouter } = require("./routes/user");
+const { courseRouter } = require("./routes/course");
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -13,6 +16,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/course", courseRouter);
+app.use("/api/v1/user", userRouter);
+
 async function main() {
   try {
     await mongoose.connect(process.env.MONGO_URL);
@@ -24,5 +30,4 @@ async function main() {
     process.exit(1);
   }
 }
-
 main();
